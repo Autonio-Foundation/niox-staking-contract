@@ -1,12 +1,46 @@
-/**
- *Submitted for verification at Etherscan.io on 2021-06-02
-*/
+// File: @chainlink\contracts\src\v0.5\interfaces\AggregatorV3Interface.sol
+
+pragma solidity >=0.5.0;
+
+interface AggregatorV3Interface {
+
+  function decimals() external view returns (uint8);
+  function description() external view returns (string memory);
+  function version() external view returns (uint256);
+
+  // getRoundData and latestRoundData should both raise "No data present"
+  // if they do not have data to report, instead of returning unset values
+  // which could be misinterpreted as actual reported values.
+  function getRoundData(uint80 _roundId)
+    external
+    view
+    returns (
+      uint80 roundId,
+      int256 answer,
+      uint256 startedAt,
+      uint256 updatedAt,
+      uint80 answeredInRound
+    );
+  function latestRoundData()
+    external
+    view
+    returns (
+      uint80 roundId,
+      int256 answer,
+      uint256 startedAt,
+      uint256 updatedAt,
+      uint80 answeredInRound
+    );
+
+}
+
+// File: contracts\niox-staking.sol
 
 /**
- *Submitted for verification at Etherscan.io on 2020-09-16
+ *Submitted for verification at Etherscan.io on 2021-07-01
 */
 
-pragma solidity ^0.5.16;
+pragma solidity ^0.5.17;
 
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP. Does not include
@@ -510,11 +544,18 @@ contract RewardsDistributionRecipient {
     }
 }
 
-contract StakingRewards is IStakingRewards, RewardsDistributionRecipient, ReentrancyGuard {
+
+interface KeeperCompatibleInterface {
+    function checkUpkeep(bytes calldata checkData) external view returns (bool upkeepNeeded, bytes memory performData);
+    function performUpkeep(bytes calldata performData) external;
+}
+
+contract StakingRewards is IStakingRewards, RewardsDistributionRecipient, ReentrancyGuard, KeeperCompatibleInterface {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
     /* ========== STATE VARIABLES ========== */
+
     IERC20 public rewardsToken;
     IERC20 public stakingToken;
     uint256 public periodFinish = 0;
@@ -524,21 +565,43 @@ contract StakingRewards is IStakingRewards, RewardsDistributionRecipient, Reentr
 
     mapping(address => uint256) public userRewardPerTokenPaid;
     mapping(address => uint256) public rewards;
+    
+    mapping(address => address) public checkUser;
+    address[] public userList;
 
-    uint256 private _totalSupply;
-    mapping(address => uint256) private _balances;
-    mapping(address => uint256) private _lockingTimeStamp;
+    uint256 private _actualtotalSupply; //  actual total amount staked
+    uint256 private _totalSupply; // weight total Stake amount according to tier
+    
+    mapping(address => uint256) private _balances; // weight Stake amount
+    mapping(address => uint256) private _actualbalances; // actual amount staked
+    
+    mapping(address => uint256) private _userLockPeriod; // user after 6 month timestamp
+    mapping(address => uint256) private _userRewardLockPeriod; // user after 6 month timestamp
+    
+    uint public lastTimeStamp;
+    
+    /**
+    * Public counter variable
+    */
+    uint public counter;
+    
+    uint public interval;
 
     /* ========== CONSTRUCTOR ========== */
 
     constructor(
         address _rewardsDistribution,
         address _rewardsToken,
-        address _stakingToken,
+        address _stakingToken
     ) public {
         rewardsToken = IERC20(_rewardsToken);
         stakingToken = IERC20(_stakingToken);
         rewardsDistribution = _rewardsDistribution;
+        
+         interval = 180; //15 min chk interval
+         lastTimeStamp = block.timestamp;
+
+         counter = 0;
     }
 
     /* ========== VIEWS ========== */
@@ -549,6 +612,14 @@ contract StakingRewards is IStakingRewards, RewardsDistributionRecipient, Reentr
 
     function balanceOf(address account) external view returns (uint256) {
         return _balances[account];
+    }
+
+     function actualTotalSupply() external view returns (uint256) {
+        return _actualtotalSupply;
+    }
+
+    function actualBalanceOf(address account) external view returns (uint256) {
+        return _actualbalances[account];
     }
 
     function lastTimeRewardApplicable() public view returns (uint256) {
@@ -571,71 +642,180 @@ contract StakingRewards is IStakingRewards, RewardsDistributionRecipient, Reentr
 
     /* ========== MUTATIVE FUNCTIONS ========== */
 
-    function stakeWithPermit(uint256 amount, uint deadline, uint8 v, bytes32 r, bytes32 s) external nonReentrant updateReward(msg.sender) {
-        require(amount > 0, "Cannot stake 0");
-        require(_lockingTimeStamp[msg.sender] <= 0);
-        _totalSupply = _totalSupply.add(amount);
-        _balances[msg.sender] = _balances[msg.sender].add(amount);
-        _lockingTimeStamp[msg.sender] = 0;
-        // permit
-        IUniswapV2ERC20(address(stakingToken)).permit(msg.sender, address(this), amount, deadline, v, r, s);
-
-        stakingToken.safeTransferFrom(msg.sender, address(this), amount);
-        emit Staked(msg.sender, amount);
-    }
-
     function stake(uint256 amount) external nonReentrant updateReward(msg.sender) {
         require(amount > 0, "Cannot stake 0");
-        require(_lockingTimeStamp[msg.sender] <= 0);
-        _totalSupply = _totalSupply.add(amount);
-        _balances[msg.sender] = _balances[msg.sender].add(amount);
-        _lockingTimeStamp[msg.sender] = 0;
+        _actualtotalSupply = _actualtotalSupply.add(amount);
+        _actualbalances[msg.sender] = _actualbalances[msg.sender].add(amount);
+        
+        if(_actualbalances[msg.sender] >= 3000000000) {
+            _balances[msg.sender] = _balances[msg.sender].add(amount);
+            _totalSupply = _totalSupply.add(amount);
+        }
+        else if(_actualbalances[msg.sender] >= 1500000000 && _actualbalances[msg.sender] < 3000000000){
+            uint256 newamount = amount / 100 * 75;
+            _balances[msg.sender] = _balances[msg.sender].add(newamount);
+            _totalSupply = _totalSupply.add(newamount);
+        } 
+        else if(_actualbalances[msg.sender] >= 500000000 && _actualbalances[msg.sender] < 1500000000){
+             uint256 newamount = amount / 100 * 63;
+            _balances[msg.sender] = _balances[msg.sender].add(newamount);
+            _totalSupply = _totalSupply.add(newamount);
+        } 
+        else if(_actualbalances[msg.sender] < 500000000){
+             uint256 newamount = amount / 100 * 50;
+            _balances[msg.sender] = _balances[msg.sender].add(newamount);
+            _totalSupply = _totalSupply.add(newamount);
+        }
+        
         stakingToken.safeTransferFrom(msg.sender, address(this), amount);
+        
+        // update at inital stake
+        if(_userLockPeriod[msg.sender] < 1){
+            _userLockPeriod[msg.sender] = now + 2 days; // for withdraw locking
+            _userRewardLockPeriod[msg.sender] = now + 1 days; // for reward locking
+         }
+         
         emit Staked(msg.sender, amount);
     }
-
-    function stakeTransferWithBalance(uint256 amount, address useraddress, uint256 lockingPeriod) external nonReentrant updateReward(useraddress) {
-        require(amount > 0, "Cannot stake 0");
-        require(_balances[useraddress] <= 0, "Already staked by user");
-        _totalSupply = _totalSupply.add(amount);
-        _balances[useraddress] = _balances[useraddress].add(amount);
-        _lockingTimeStamp[useraddress] = lockingPeriod; // setting user locking ts
-        stakingToken.safeTransferFrom(msg.sender, address(this), amount);
-        emit Staked(useraddress, amount);
+    
+    function stakeComponding(address uaddress) internal nonReentrant updateReward(uaddress) {
+       
+        uint256 rewardAmt = earned(uaddress);
+        require(rewardAmt > 0, "Cannot stake 0");
+         if(earned(uaddress) > 0){
+        _actualtotalSupply = _actualtotalSupply.add(rewardAmt);
+        _actualbalances[uaddress] = _actualbalances[uaddress].add(rewardAmt);
+        
+        if(_actualbalances[uaddress] >= 3000000000) {
+            _balances[uaddress] = _balances[uaddress].add(rewardAmt);
+            _totalSupply = _totalSupply.add(rewardAmt);
+        }
+        else if(_actualbalances[uaddress] >= 1500000000 && _actualbalances[uaddress] < 3000000000){
+            uint256 newamount = rewardAmt / 100 * 75;
+            _balances[uaddress] = _balances[uaddress].add(newamount);
+            _totalSupply = _totalSupply.add(newamount);
+        } 
+        else if(_actualbalances[uaddress] >= 500000000 && _actualbalances[uaddress] < 1500000000){
+             uint256 newamount = rewardAmt / 100 * 63;
+            _balances[uaddress] = _balances[uaddress].add(newamount);
+            _totalSupply = _totalSupply.add(newamount);
+        } 
+        else if(_actualbalances[uaddress] < 500000000){
+             uint256 newamount = rewardAmt / 100 * 50;
+            _balances[uaddress] = _balances[uaddress].add(newamount);
+            _totalSupply = _totalSupply.add(newamount);
+        }
+        
+        // stakingToken.safeTransferFrom(uaddress, address(this), amount);
+        
+        // update at inital stake
+        if(_userLockPeriod[uaddress] < 1){
+            _userLockPeriod[uaddress] = now + 2 days; // for withdraw locking
+            _userRewardLockPeriod[uaddress] = now + 1 days; // for reward locking
+         }
+         
+          rewards[uaddress] = 0; // setting user reward to zero since its added to stake
+          emit RewardPaid(uaddress, rewardAmt);
+         
+        emit Staked(uaddress, rewardAmt);
+    }
     }
 
     function withdraw(uint256 amount) public nonReentrant updateReward(msg.sender) {
         require(amount > 0, "Cannot withdraw 0");
-
-        if(_lockingTimeStamp[msg.sender] > 0){
-            require(block.timestamp >= _lockingTimeStamp[msg.sender],"Unable to withdraw in locking period");
+        require(block.timestamp > _userLockPeriod[msg.sender], "Cannot withdraw before 6 month from inital stake");
+        
+        _actualtotalSupply = _actualtotalSupply.sub(amount);
+        _actualbalances[msg.sender] = _actualbalances[msg.sender].sub(amount);
+        
+       // _totalSupply = _totalSupply.sub(amount);
+        //_balances[msg.sender] = _balances[msg.sender].sub(amount);
+        
+        if(_actualbalances[msg.sender] >= 3000000000) {
             _totalSupply = _totalSupply.sub(amount);
             _balances[msg.sender] = _balances[msg.sender].sub(amount);
-            stakingToken.safeTransfer(msg.sender, amount);
-            emit Withdrawn(msg.sender, amount);
-        } 
-        else if(_lockingTimeStamp[msg.sender] <= 0) {
-            _totalSupply = _totalSupply.sub(amount);
-            _balances[msg.sender] = _balances[msg.sender].sub(amount);
-            stakingToken.safeTransfer(msg.sender, amount);
-            emit Withdrawn(msg.sender, amount);
         }
-       
+        else if(_actualbalances[msg.sender] >= 1500000000 && _actualbalances[msg.sender] < 3000000000){
+            uint256 newamount = amount / 100 * 75;
+            _totalSupply = _totalSupply.sub(newamount);
+            _balances[msg.sender] = _balances[msg.sender].sub(newamount);
+        } 
+        else if(_actualbalances[msg.sender] >= 500000000 && _actualbalances[msg.sender] < 1500000000){
+             uint256 newamount = amount / 100 * 63;
+            _totalSupply = _totalSupply.sub(newamount);
+            _balances[msg.sender] = _balances[msg.sender].sub(newamount);
+        } 
+        else if(_actualbalances[msg.sender] < 500000000){
+            uint256 newamount = amount / 100 * 50;
+            _totalSupply = _totalSupply.sub(newamount);
+            _balances[msg.sender] = _balances[msg.sender].sub(newamount);
+        }
+        
+        
+        stakingToken.safeTransfer(msg.sender, amount);
+        emit Withdrawn(msg.sender, amount);
     }
 
     function getReward() public nonReentrant updateReward(msg.sender) {
         uint256 reward = rewards[msg.sender];
+         require(block.timestamp > _userRewardLockPeriod[msg.sender], "Cannot withdraw before locking reward period");
         if (reward > 0) {
             rewards[msg.sender] = 0;
             rewardsToken.safeTransfer(msg.sender, reward);
+            _userRewardLockPeriod[msg.sender] = block.timestamp + 1 days; // reward lock timestamp
             emit RewardPaid(msg.sender, reward);
         }
     }
 
+    function enrollComponding() public nonReentrant {
+        require(_balances[msg.sender] > 0, "Not a staker");
+        require(checkUser[msg.sender] != msg.sender, "Already added in compounding");
+        
+        checkUser[msg.sender]= msg.sender;
+        userList.push(msg.sender);
+    }
+    
+    function leaveComponding() public nonReentrant {
+        require(_balances[msg.sender] > 0, "Not a staker");
+        require(checkUser[msg.sender] == msg.sender, "Already added in compounding");
+        
+        for (uint i = 0; i < userList.length; i++) {
+            if(userList[i] == msg.sender) {
+            userList[i] = userList[userList.length - 1];
+            checkUser[msg.sender]= address(0);
+            userList.pop();
+            break;
+            }
+        }
+    }
+    
     function exit() external {
-        withdraw(_balances[msg.sender]);
+        withdraw(_actualbalances[msg.sender]);
         getReward();
     }
+    
+    function checkUpkeep(bytes calldata checkData) external view returns (bool upkeepNeeded, bytes memory performData) {
+        upkeepNeeded = (block.timestamp - lastTimeStamp) > interval;
+
+        // We don't use the checkData in this example
+        // checkData was defined when the Upkeep was registered
+        performData = checkData;
+    }
+
+    function performUpkeep(bytes calldata performData) external {
+        lastTimeStamp = block.timestamp;
+        counter = counter + 1;
+        
+         for (uint i = 0; i < userList.length; i++) {
+             if(earned(userList[i]) > 0){
+                 stakeComponding(userList[i]);
+             }
+        }
+        // We don't use the performData in this example
+        // performData is generated by the Keeper's call to your `checkUpkeep` function
+        performData;
+    }
+        
 
     /* ========== RESTRICTED FUNCTIONS ========== */
 
