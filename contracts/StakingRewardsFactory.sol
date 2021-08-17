@@ -598,7 +598,7 @@ contract StakingRewards is IStakingRewards, RewardsDistributionRecipient, Reentr
         stakingToken = IERC20(_stakingToken);
         rewardsDistribution = _rewardsDistribution;
         
-         interval = 180; //15 min chk interval
+         interval = 300; //15 min chk interval
          lastTimeStamp = block.timestamp;
 
          counter = 0;
@@ -671,8 +671,8 @@ contract StakingRewards is IStakingRewards, RewardsDistributionRecipient, Reentr
         
         // update at inital stake
         if(_userLockPeriod[msg.sender] < 1){
-            _userLockPeriod[msg.sender] = now + 2 days; // for withdraw locking
-            _userRewardLockPeriod[msg.sender] = now + 1 days; // for reward locking
+            _userLockPeriod[msg.sender] = now + 3 minutes; // for withdraw locking
+            _userRewardLockPeriod[msg.sender] = now + 10 minutes; // for reward locking
          }
          
         emit Staked(msg.sender, amount);
@@ -710,8 +710,8 @@ contract StakingRewards is IStakingRewards, RewardsDistributionRecipient, Reentr
         
         // update at inital stake
         if(_userLockPeriod[uaddress] < 1){
-            _userLockPeriod[uaddress] = now + 2 days; // for withdraw locking
-            _userRewardLockPeriod[uaddress] = now + 1 days; // for reward locking
+            _userLockPeriod[uaddress] = now + 3 minutes; // for withdraw locking
+            _userRewardLockPeriod[uaddress] = now + 3 minutes; // for reward locking
          }
          
           rewards[uaddress] = 0; // setting user reward to zero since its added to stake
@@ -762,7 +762,7 @@ contract StakingRewards is IStakingRewards, RewardsDistributionRecipient, Reentr
         if (reward > 0) {
             rewards[msg.sender] = 0;
             rewardsToken.safeTransfer(msg.sender, reward);
-            _userRewardLockPeriod[msg.sender] = block.timestamp + 1 days; // reward lock timestamp
+            _userRewardLockPeriod[msg.sender] = block.timestamp + 10 minutes; // reward lock timestamp
             emit RewardPaid(msg.sender, reward);
         }
     }
