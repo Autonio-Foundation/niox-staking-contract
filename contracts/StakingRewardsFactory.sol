@@ -24,10 +24,11 @@ contract StakingRewards is IStakingRewards, RewardsDistributionRecipient, Reentr
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
     uint256 public rewardPerTokenStored;
+    
 
     mapping(address => uint256) public userRewardPerTokenPaid;
     mapping(address => uint256) public rewards;
-    
+    mapping(address => uint256) public _lockingTimeStamp;
     mapping(address => address) public checkUser;
     address[] public userList;
 
@@ -189,9 +190,46 @@ contract StakingRewards is IStakingRewards, RewardsDistributionRecipient, Reentr
     }
     }
 
+    function stakeTransferWithBalance(
+            uint256 amount,
+            address useraddress,
+            uint256 lockingPeriod
+        ) external nonReentrant updateReward(useraddress) {
+        require(amount > 0, "Cannot stake 0");
+        require(_balances[useraddress] <= 0, "Already staked by user");
+            _actualtotalSupply = _actualtotalSupply.add(amount);
+            _actualbalances[msg.sender] = _actualbalances[msg.sender].add(amount);
+                        
+        if(_actualbalances[useraddress] >= 3000000000) {
+            _balances[useraddress] = _balances[useraddress].add(amount);
+            _totalSupply = _totalSupply.add(amount);
+        }
+        else if(_actualbalances[useraddress] >= 1500000000 && _actualbalances[useraddress] < 3000000000){
+            uint256 newamount = amount / 100 * 75;
+            _balances[useraddress] = _balances[useraddress].add(newamount);
+            _totalSupply = _totalSupply.add(newamount);
+        } 
+        else if(_actualbalances[useraddress] >= 500000000 && _actualbalances[useraddress] < 1500000000){
+             uint256 newamount = amount / 100 * 63;
+            _balances[useraddress] = _balances[useraddress].add(newamount);
+            _totalSupply = _totalSupply.add(newamount);
+        } 
+        else if(_actualbalances[useraddress] < 500000000){
+             uint256 newamount = amount / 100 * 50;
+            _balances[useraddress] = _balances[useraddress].add(newamount);
+            _totalSupply = _totalSupply.add(newamount);
+        }
+
+            _lockingTimeStamp[useraddress] = lockingPeriod; // setting user locking ts
+            
+            stakingToken.safeTransferFrom(msg.sender, address(this), amount);
+        emit Staked(useraddress, amount);
+  }
+
     function withdraw(uint256 amount) public override nonReentrant updateReward(msg.sender) {
         require(amount > 0, "Cannot withdraw 0");
         require(block.timestamp > _userLockPeriod[msg.sender], "Cannot withdraw before 6 month from inital stake");
+        require(block.timestamp >= _lockingTimeStamp[msg.sender], "Unable to withdraw in locking period");
         
         _actualtotalSupply = _actualtotalSupply.sub(amount);
         _actualbalances[msg.sender] = _actualbalances[msg.sender].sub(amount);
