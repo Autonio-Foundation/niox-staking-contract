@@ -23,8 +23,7 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
-const privateKey =
-  "2b04fb8193a14c32598594fccf90d9fee1d78be5ea84850d67cbcc48431936c1";
+const privateKey = "";
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -65,7 +64,7 @@ module.exports = {
       provider: () =>
         new HDWalletProvider(
           [privateKey],
-          `https://kovan.infura.io/v3/4ee71c3a70404cf8b1241df95bbc1347`
+          `https://kovan.infura.io/v3/`
         ),
       network_id: 42, // Kovan's id
       gas: 10000000, // Kovan has a lower block limit than mainnet
@@ -102,6 +101,6 @@ module.exports = {
   },
   plugins: ["truffle-plugin-verify"],
   api_keys: {
-    etherscan: "89YRAXBI4MWAGY6SP3HMWSPMA86XYW3MBV",
+    etherscan: "",
   },
 };
