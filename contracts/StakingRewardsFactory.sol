@@ -244,48 +244,35 @@ contract StakingRewards is
       _actualbalances[userAddress] = _actualbalances[userAddress].sub(amount);
     }
 
+    uint256 yield;
+
     if (_actualbalances[userAddress] >= 3000000000) {
-      if (isAdd) {
-        _balances[userAddress] = _balances[userAddress].add(amount);
-        _totalSupply = _totalSupply.add(amount);
-      } else {
-        _balances[userAddress] = _balances[userAddress].sub(amount);
-        _totalSupply = _totalSupply.sub(amount);
-      }
+      yield = 100;
     } else if (
       _actualbalances[userAddress] >= 1500000000 &&
       _actualbalances[userAddress] < 3000000000
     ) {
-      uint256 newamount = (amount / 100) * 75;
-      if (isAdd) {
-        _balances[userAddress] = _balances[userAddress].add(newamount);
-        _totalSupply = _totalSupply.add(newamount);
-      } else {
-        _balances[userAddress] = _balances[userAddress].sub(newamount);
-        _totalSupply = _totalSupply.sub(newamount);
-      }
+      yield = 75;
     } else if (
       _actualbalances[userAddress] >= 500000000 &&
       _actualbalances[userAddress] < 1500000000
     ) {
-      uint256 newamount = (amount / 100) * 63;
-      if (isAdd) {
-        _balances[userAddress] = _balances[userAddress].add(newamount);
-        _totalSupply = _totalSupply.add(newamount);
-      } else {
-        _balances[userAddress] = _balances[userAddress].sub(newamount);
-        _totalSupply = _totalSupply.sub(newamount);
-      }
+      yield = 63;
     } else if (_actualbalances[userAddress] < 500000000) {
-      uint256 newamount = (amount / 100) * 50;
-      if (isAdd) {
-        _balances[userAddress] = _balances[userAddress].add(newamount);
-        _totalSupply = _totalSupply.add(newamount);
-      } else {
-        _balances[userAddress] = _balances[userAddress].sub(newamount);
-        _totalSupply = _totalSupply.sub(newamount);
-      }
+      yield = 50;
     }
+
+    uint256 newBalance = _actualbalances[userAddress].mul(yield) / 100;
+
+    if (isAdd) {
+      uint256 changedBalance = newBalance.sub(_balances[userAddress]);
+      _totalSupply = _totalSupply.add(changedBalance);
+    } else {
+      uint256 changedBalance = _balances[userAddress].sub(newBalance);
+      _totalSupply = _totalSupply.sub(changedBalance);
+    }
+
+    _balances[userAddress] = newBalance;
   }
 
   function getReward() public override nonReentrant updateReward(msg.sender) {
