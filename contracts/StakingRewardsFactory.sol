@@ -201,7 +201,7 @@ contract StakingRewards is
     require(amount > 0, "Cannot stake 0");
     require(_balances[useraddress] <= 0, "Already staked by user");
 
-    _updateBalance(msg.sender, amount, true);
+    _updateBalance(useraddress, amount, true);
 
     _lockingTimeStamp[useraddress] = lockingPeriod; // setting user locking ts
 
