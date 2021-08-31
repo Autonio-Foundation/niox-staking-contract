@@ -1,5 +1,9 @@
 const StakingRewardsFactory = artifacts.require("StakingRewardsFactory");
 
-module.exports = function(deployer) {
-  deployer.deploy(StakingRewardsFactory, '', ''); // reward token address and genesis block timestamp
+module.exports = function (deployer) {
+  deployer.deploy(
+    StakingRewardsFactory,
+    "0x973c43a98a5f400a708301fd78d49951b5c4187f",
+    "1630398600"
+  ); // reward token address and genesis block timestamp
 };
