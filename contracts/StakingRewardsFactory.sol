@@ -131,31 +131,8 @@ contract StakingRewards is
     updateReward(msg.sender)
   {
     require(amount > 0, "Cannot stake 0");
-    _actualtotalSupply = _actualtotalSupply.add(amount);
-    _actualbalances[msg.sender] = _actualbalances[msg.sender].add(amount);
 
-    if (_actualbalances[msg.sender] >= 3000000000) {
-      _balances[msg.sender] = _balances[msg.sender].add(amount);
-      _totalSupply = _totalSupply.add(amount);
-    } else if (
-      _actualbalances[msg.sender] >= 1500000000 &&
-      _actualbalances[msg.sender] < 3000000000
-    ) {
-      uint256 newamount = (amount / 100) * 75;
-      _balances[msg.sender] = _balances[msg.sender].add(newamount);
-      _totalSupply = _totalSupply.add(newamount);
-    } else if (
-      _actualbalances[msg.sender] >= 500000000 &&
-      _actualbalances[msg.sender] < 1500000000
-    ) {
-      uint256 newamount = (amount / 100) * 63;
-      _balances[msg.sender] = _balances[msg.sender].add(newamount);
-      _totalSupply = _totalSupply.add(newamount);
-    } else if (_actualbalances[msg.sender] < 500000000) {
-      uint256 newamount = (amount / 100) * 50;
-      _balances[msg.sender] = _balances[msg.sender].add(newamount);
-      _totalSupply = _totalSupply.add(newamount);
-    }
+    _updateBalance(msg.sender, amount, true);
 
     stakingToken.safeTransferFrom(msg.sender, address(this), amount);
 
