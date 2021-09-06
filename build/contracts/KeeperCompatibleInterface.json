@@ -39,7 +39,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"checkData\",\"type\":\"bytes\"}],\"name\":\"checkUpkeep\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"upkeepNeeded\",\"type\":\"bool\"},{\"internalType\":\"bytes\",\"name\":\"performData\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"performData\",\"type\":\"bytes\"}],\"name\":\"performUpkeep\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/D/Working Dir/autonio/niox-staking-contract/contracts/KeeperCompatibleInterface.sol\":\"KeeperCompatibleInterface\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/D/Working Dir/autonio/niox-staking-contract/contracts/KeeperCompatibleInterface.sol\":{\"keccak256\":\"0xf74fb0cac66ad11d843dc5c557d8d4cee0d8b5f5dcd172e5097756921a3561c4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://948a3836084ee566b24f61de215ba818065900636e4e011f521fe3fdb1db7660\",\"dweb:/ipfs/QmQ2fMdhgTBtJGmZK4CNJhRFTV2tZRu8995ncTgf3FQJFp\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"checkData\",\"type\":\"bytes\"}],\"name\":\"checkUpkeep\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"upkeepNeeded\",\"type\":\"bool\"},{\"internalType\":\"bytes\",\"name\":\"performData\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"performData\",\"type\":\"bytes\"}],\"name\":\"performUpkeep\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/KeeperCompatibleInterface.sol\":\"KeeperCompatibleInterface\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/KeeperCompatibleInterface.sol\":{\"keccak256\":\"0xfd25e2b2ea3b2e9cb669649ac0e21df7fd1f8ce3190552e439ae632fd12a7d7f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://931a6f074351c4561b9d617e6a5de92e6c871a08961e60d9cf29107f3cd4737d\",\"dweb:/ipfs/QmYFHnG9DcczVojgtaYjJCjp4yZ2oqBZw5c6uPdWP54ych\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -47,29 +47,29 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.7.6;\r\n\r\ninterface KeeperCompatibleInterface {\r\n  function checkUpkeep(bytes calldata checkData)\r\n    external\r\n    view\r\n    returns (bool upkeepNeeded, bytes memory performData);\r\n\r\n  function performUpkeep(bytes calldata performData) external;\r\n}\r\n",
-  "sourcePath": "D:/Working Dir/autonio/niox-staking-contract/contracts/KeeperCompatibleInterface.sol",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\ninterface KeeperCompatibleInterface {\r\n  function checkUpkeep(bytes calldata checkData)\r\n    external\r\n    view\r\n    returns (bool upkeepNeeded, bytes memory performData);\r\n\r\n  function performUpkeep(bytes calldata performData) external;\r\n}\r\n",
+  "sourcePath": "E:\\B\\Autonio\\niox-staking-contract\\contracts\\KeeperCompatibleInterface.sol",
   "ast": {
-    "absolutePath": "/D/Working Dir/autonio/niox-staking-contract/contracts/KeeperCompatibleInterface.sol",
+    "absolutePath": "project:/contracts/KeeperCompatibleInterface.sol",
     "exportedSymbols": {
       "KeeperCompatibleInterface": [
-        74
+        1239
       ]
     },
-    "id": 75,
+    "id": 1240,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 59,
+        "id": 1224,
         "literals": [
           "solidity",
           "^",
-          "0.7",
-          ".6"
+          "0.8",
+          ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:23:1"
+        "src": "33:23:9"
       },
       {
         "abstract": false,
@@ -77,33 +77,33 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 74,
+        "id": 1239,
         "linearizedBaseContracts": [
-          74
+          1239
         ],
         "name": "KeeperCompatibleInterface",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "functionSelector": "6e04ff0d",
-            "id": 68,
+            "id": 1233,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "checkUpkeep",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 62,
+              "id": 1227,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 61,
+                  "id": 1226,
                   "mutability": "mutable",
                   "name": "checkData",
                   "nodeType": "VariableDeclaration",
-                  "scope": 68,
-                  "src": "122:24:1",
+                  "scope": 1233,
+                  "src": "122:24:9",
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -111,10 +111,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 60,
+                    "id": 1225,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "122:5:1",
+                    "src": "122:5:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -123,20 +123,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "121:26:1"
+              "src": "121:26:9"
             },
             "returnParameters": {
-              "id": 67,
+              "id": 1232,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 64,
+                  "id": 1229,
                   "mutability": "mutable",
                   "name": "upkeepNeeded",
                   "nodeType": "VariableDeclaration",
-                  "scope": 68,
-                  "src": "186:17:1",
+                  "scope": 1233,
+                  "src": "186:17:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -144,10 +144,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 63,
+                    "id": 1228,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "186:4:1",
+                    "src": "186:4:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -157,12 +157,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 66,
+                  "id": 1231,
                   "mutability": "mutable",
                   "name": "performData",
                   "nodeType": "VariableDeclaration",
-                  "scope": 68,
-                  "src": "205:24:1",
+                  "scope": 1233,
+                  "src": "205:24:9",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -170,10 +170,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 65,
+                    "id": 1230,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "205:5:1",
+                    "src": "205:5:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -182,34 +182,34 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "185:45:1"
+              "src": "185:45:9"
             },
-            "scope": 74,
-            "src": "101:130:1",
+            "scope": 1239,
+            "src": "101:130:9",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           },
           {
             "functionSelector": "4585e33b",
-            "id": 73,
+            "id": 1238,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "performUpkeep",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 71,
+              "id": 1236,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 70,
+                  "id": 1235,
                   "mutability": "mutable",
                   "name": "performData",
                   "nodeType": "VariableDeclaration",
-                  "scope": 73,
-                  "src": "260:26:1",
+                  "scope": 1238,
+                  "src": "260:26:9",
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -217,10 +217,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 69,
+                    "id": 1234,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "260:5:1",
+                    "src": "260:5:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -229,264 +229,235 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "259:28:1"
+              "src": "259:28:9"
             },
             "returnParameters": {
-              "id": 72,
+              "id": 1237,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "296:0:1"
+              "src": "296:0:9"
             },
-            "scope": 74,
-            "src": "237:60:1",
+            "scope": 1239,
+            "src": "237:60:9",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 75,
-        "src": "60:240:1"
+        "scope": 1240,
+        "src": "60:240:9"
       }
     ],
-    "src": "33:269:1"
+    "src": "33:269:9"
   },
   "legacyAST": {
-    "attributes": {
-      "absolutePath": "/D/Working Dir/autonio/niox-staking-contract/contracts/KeeperCompatibleInterface.sol",
-      "exportedSymbols": {
-        "KeeperCompatibleInterface": [
-          74
-        ]
-      },
-      "license": "MIT"
+    "absolutePath": "project:/contracts/KeeperCompatibleInterface.sol",
+    "exportedSymbols": {
+      "KeeperCompatibleInterface": [
+        1239
+      ]
     },
-    "children": [
+    "id": 1240,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
       {
-        "attributes": {
-          "literals": [
-            "solidity",
-            "^",
-            "0.7",
-            ".6"
-          ]
-        },
-        "id": 59,
-        "name": "PragmaDirective",
-        "src": "33:23:1"
+        "id": 1224,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:9"
       },
       {
-        "attributes": {
-          "abstract": false,
-          "baseContracts": [
-            null
-          ],
-          "contractDependencies": [
-            null
-          ],
-          "contractKind": "interface",
-          "fullyImplemented": false,
-          "linearizedBaseContracts": [
-            74
-          ],
-          "name": "KeeperCompatibleInterface",
-          "scope": 75
-        },
-        "children": [
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 1239,
+        "linearizedBaseContracts": [
+          1239
+        ],
+        "name": "KeeperCompatibleInterface",
+        "nodeType": "ContractDefinition",
+        "nodes": [
           {
-            "attributes": {
-              "functionSelector": "6e04ff0d",
-              "implemented": false,
-              "isConstructor": false,
-              "kind": "function",
-              "modifiers": [
-                null
-              ],
-              "name": "checkUpkeep",
-              "scope": 74,
-              "stateMutability": "view",
-              "virtual": false,
-              "visibility": "external"
-            },
-            "children": [
-              {
-                "children": [
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "mutability": "mutable",
-                      "name": "checkData",
-                      "scope": 68,
-                      "stateVariable": false,
-                      "storageLocation": "calldata",
-                      "type": "bytes",
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "bytes",
-                          "type": "bytes"
-                        },
-                        "id": 60,
-                        "name": "ElementaryTypeName",
-                        "src": "122:5:1"
-                      }
-                    ],
-                    "id": 61,
-                    "name": "VariableDeclaration",
-                    "src": "122:24:1"
-                  }
-                ],
-                "id": 62,
-                "name": "ParameterList",
-                "src": "121:26:1"
-              },
-              {
-                "children": [
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "mutability": "mutable",
-                      "name": "upkeepNeeded",
-                      "scope": 68,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "bool",
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "bool",
-                          "type": "bool"
-                        },
-                        "id": 63,
-                        "name": "ElementaryTypeName",
-                        "src": "186:4:1"
-                      }
-                    ],
-                    "id": 64,
-                    "name": "VariableDeclaration",
-                    "src": "186:17:1"
+            "functionSelector": "6e04ff0d",
+            "id": 1233,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "checkUpkeep",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1227,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1226,
+                  "mutability": "mutable",
+                  "name": "checkData",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1233,
+                  "src": "122:24:9",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
                   },
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "mutability": "mutable",
-                      "name": "performData",
-                      "scope": 68,
-                      "stateVariable": false,
-                      "storageLocation": "memory",
-                      "type": "bytes",
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "bytes",
-                          "type": "bytes"
-                        },
-                        "id": 65,
-                        "name": "ElementaryTypeName",
-                        "src": "205:5:1"
-                      }
-                    ],
-                    "id": 66,
-                    "name": "VariableDeclaration",
-                    "src": "205:24:1"
-                  }
-                ],
-                "id": 67,
-                "name": "ParameterList",
-                "src": "185:45:1"
-              }
-            ],
-            "id": 68,
-            "name": "FunctionDefinition",
-            "src": "101:130:1"
+                  "typeName": {
+                    "id": 1225,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "122:5:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "121:26:9"
+            },
+            "returnParameters": {
+              "id": 1232,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1229,
+                  "mutability": "mutable",
+                  "name": "upkeepNeeded",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1233,
+                  "src": "186:17:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 1228,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "186:4:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1231,
+                  "mutability": "mutable",
+                  "name": "performData",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1233,
+                  "src": "205:24:9",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 1230,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "205:5:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "185:45:9"
+            },
+            "scope": 1239,
+            "src": "101:130:9",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
           },
           {
-            "attributes": {
-              "functionSelector": "4585e33b",
-              "implemented": false,
-              "isConstructor": false,
-              "kind": "function",
-              "modifiers": [
-                null
+            "functionSelector": "4585e33b",
+            "id": 1238,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "performUpkeep",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1236,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1235,
+                  "mutability": "mutable",
+                  "name": "performData",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1238,
+                  "src": "260:26:9",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 1234,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "260:5:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
               ],
-              "name": "performUpkeep",
-              "scope": 74,
-              "stateMutability": "nonpayable",
-              "virtual": false,
-              "visibility": "external"
+              "src": "259:28:9"
             },
-            "children": [
-              {
-                "children": [
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "mutability": "mutable",
-                      "name": "performData",
-                      "scope": 73,
-                      "stateVariable": false,
-                      "storageLocation": "calldata",
-                      "type": "bytes",
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "bytes",
-                          "type": "bytes"
-                        },
-                        "id": 69,
-                        "name": "ElementaryTypeName",
-                        "src": "260:5:1"
-                      }
-                    ],
-                    "id": 70,
-                    "name": "VariableDeclaration",
-                    "src": "260:26:1"
-                  }
-                ],
-                "id": 71,
-                "name": "ParameterList",
-                "src": "259:28:1"
-              },
-              {
-                "attributes": {
-                  "parameters": [
-                    null
-                  ]
-                },
-                "children": [],
-                "id": 72,
-                "name": "ParameterList",
-                "src": "296:0:1"
-              }
-            ],
-            "id": 73,
-            "name": "FunctionDefinition",
-            "src": "237:60:1"
+            "returnParameters": {
+              "id": 1237,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "296:0:9"
+            },
+            "scope": 1239,
+            "src": "237:60:9",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
           }
         ],
-        "id": 74,
-        "name": "ContractDefinition",
-        "src": "60:240:1"
+        "scope": 1240,
+        "src": "60:240:9"
       }
     ],
-    "id": 75,
-    "name": "SourceUnit",
-    "src": "33:269:1"
+    "src": "33:269:9"
   },
   "compiler": {
     "name": "solc",
-    "version": "0.7.6+commit.7338295f.Emscripten.clang"
+    "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.3",
-  "updatedAt": "2021-08-31T08:22:19.974Z",
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2021-09-06T15:38:14.132Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

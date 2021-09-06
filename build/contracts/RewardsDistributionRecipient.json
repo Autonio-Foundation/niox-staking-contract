@@ -33,7 +33,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"reward\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"notifyRewardAmount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rewardsDistribution\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/D/Working Dir/autonio/niox-staking-contract/contracts/RewardsDistributionRecipient.sol\":\"RewardsDistributionRecipient\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/D/Working Dir/autonio/niox-staking-contract/contracts/RewardsDistributionRecipient.sol\":{\"keccak256\":\"0xd2f47df99641fe7e4e828a90ffca1a8f02d24631f5aa0e483c848ceca358ee46\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f23c4bb552dda66e8fc0508b5e4237eae2753e054e10ccb5d29987f1e2b185a2\",\"dweb:/ipfs/QmPjZxsgsaPWUs5CrP3vv1Ep4C9S2MJoMd9Go586RpnYiv\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"reward\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"notifyRewardAmount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rewardsDistribution\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/RewardsDistributionRecipient.sol\":\"RewardsDistributionRecipient\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/RewardsDistributionRecipient.sol\":{\"keccak256\":\"0xe3df1df0b3a35cc30597d150d81cbe5aabad2bda88276e5324dca291124fd788\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://459712220a5a0487cb0f5d71e75b11e9feab77914a094e0b517797a29e028570\",\"dweb:/ipfs/QmQNczoqacVezD1ykmTZcddZT3A9mKDxFkVuTedXaJKFJb\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -41,29 +41,29 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.7.6;\r\n\r\nabstract contract RewardsDistributionRecipient {\r\n  address public rewardsDistribution;\r\n\r\n  function notifyRewardAmount(uint256 reward, uint256 duration)\r\n    external\r\n    virtual;\r\n\r\n  modifier onlyRewardsDistribution() {\r\n    require(\r\n      msg.sender == rewardsDistribution,\r\n      \"Caller is not RewardsDistribution contract\"\r\n    );\r\n    _;\r\n  }\r\n}\r\n",
-  "sourcePath": "D:/Working Dir/autonio/niox-staking-contract/contracts/RewardsDistributionRecipient.sol",
+  "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\nabstract contract RewardsDistributionRecipient {\r\n  address public rewardsDistribution;\r\n\r\n  function notifyRewardAmount(uint256 reward, uint256 duration)\r\n    external\r\n    virtual;\r\n\r\n  modifier onlyRewardsDistribution() {\r\n    require(\r\n      msg.sender == rewardsDistribution,\r\n      \"Caller is not RewardsDistribution contract\"\r\n    );\r\n    _;\r\n  }\r\n}\r\n",
+  "sourcePath": "E:\\B\\Autonio\\niox-staking-contract\\contracts\\RewardsDistributionRecipient.sol",
   "ast": {
-    "absolutePath": "/D/Working Dir/autonio/niox-staking-contract/contracts/RewardsDistributionRecipient.sol",
+    "absolutePath": "project:/contracts/RewardsDistributionRecipient.sol",
     "exportedSymbols": {
       "RewardsDistributionRecipient": [
-        98
+        1263
       ]
     },
-    "id": 99,
+    "id": 1264,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 76,
+        "id": 1241,
         "literals": [
           "solidity",
           "^",
-          "0.7",
-          ".6"
+          "0.8",
+          ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:23:2"
+        "src": "33:23:10"
       },
       {
         "abstract": true,
@@ -71,9 +71,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": false,
-        "id": 98,
+        "id": 1263,
         "linearizedBaseContracts": [
-          98
+          1263
         ],
         "name": "RewardsDistributionRecipient",
         "nodeType": "ContractDefinition",
@@ -81,12 +81,12 @@
           {
             "constant": false,
             "functionSelector": "3fc6df6e",
-            "id": 78,
+            "id": 1243,
             "mutability": "mutable",
             "name": "rewardsDistribution",
             "nodeType": "VariableDeclaration",
-            "scope": 98,
-            "src": "112:34:2",
+            "scope": 1263,
+            "src": "112:34:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -94,10 +94,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 77,
+              "id": 1242,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "112:7:2",
+              "src": "112:7:10",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -108,24 +108,24 @@
           },
           {
             "functionSelector": "246132f9",
-            "id": 85,
+            "id": 1250,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "notifyRewardAmount",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 83,
+              "id": 1248,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 80,
+                  "id": 1245,
                   "mutability": "mutable",
                   "name": "reward",
                   "nodeType": "VariableDeclaration",
-                  "scope": 85,
-                  "src": "181:14:2",
+                  "scope": 1250,
+                  "src": "181:14:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -133,10 +133,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 79,
+                    "id": 1244,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "181:7:2",
+                    "src": "181:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -146,12 +146,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 82,
+                  "id": 1247,
                   "mutability": "mutable",
                   "name": "duration",
                   "nodeType": "VariableDeclaration",
-                  "scope": 85,
-                  "src": "197:16:2",
+                  "scope": 1250,
+                  "src": "197:16:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -159,10 +159,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 81,
+                    "id": 1246,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "197:7:2",
+                    "src": "197:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -171,25 +171,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "180:34:2"
+              "src": "180:34:10"
             },
             "returnParameters": {
-              "id": 84,
+              "id": 1249,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "241:0:2"
+              "src": "241:0:10"
             },
-            "scope": 98,
-            "src": "153:89:2",
+            "scope": 1263,
+            "src": "153:89:10",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "external"
           },
           {
             "body": {
-              "id": 96,
+              "id": 1261,
               "nodeType": "Block",
-              "src": "283:130:2",
+              "src": "283:130:10",
               "statements": [
                 {
                   "expression": {
@@ -199,52 +199,52 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 91,
+                        "id": 1256,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "expression": {
-                            "id": 88,
+                            "id": 1253,
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 4294967281,
-                            "src": "306:3:2",
+                            "src": "306:3:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
                               "typeString": "msg"
                             }
                           },
-                          "id": 89,
+                          "id": 1254,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "sender",
                           "nodeType": "MemberAccess",
-                          "src": "306:10:2",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_address_payable",
-                            "typeString": "address payable"
-                          }
-                        },
-                        "nodeType": "BinaryOperation",
-                        "operator": "==",
-                        "rightExpression": {
-                          "id": 90,
-                          "name": "rewardsDistribution",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 78,
-                          "src": "320:19:2",
+                          "src": "306:10:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
                           }
                         },
-                        "src": "306:33:2",
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "id": 1255,
+                          "name": "rewardsDistribution",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1243,
+                          "src": "320:19:10",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "306:33:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
                           "typeString": "bool"
@@ -252,14 +252,14 @@
                       },
                       {
                         "hexValue": "43616c6c6572206973206e6f742052657761726473446973747269627574696f6e20636f6e7472616374",
-                        "id": 92,
+                        "id": 1257,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "348:44:2",
+                        "src": "348:44:10",
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_d50b095422f4cbfcb4c90fbd4d55aaf0967bf1d90e94bb6a1ae9fc4ee7e733de",
                           "typeString": "literal_string \"Caller is not RewardsDistribution contract\""
@@ -278,7 +278,7 @@
                           "typeString": "literal_string \"Caller is not RewardsDistribution contract\""
                         }
                       ],
-                      "id": 87,
+                      "id": 1252,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -286,13 +286,13 @@
                         4294967278
                       ],
                       "referencedDeclaration": 4294967278,
-                      "src": "290:7:2",
+                      "src": "290:7:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 93,
+                    "id": 1258,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -300,383 +300,346 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "290:109:2",
+                    "src": "290:109:10",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 94,
+                  "id": 1259,
                   "nodeType": "ExpressionStatement",
-                  "src": "290:109:2"
+                  "src": "290:109:10"
                 },
                 {
-                  "id": 95,
+                  "id": 1260,
                   "nodeType": "PlaceholderStatement",
-                  "src": "406:1:2"
+                  "src": "406:1:10"
                 }
               ]
             },
-            "id": 97,
+            "id": 1262,
             "name": "onlyRewardsDistribution",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 86,
+              "id": 1251,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "280:2:2"
+              "src": "280:2:10"
             },
-            "src": "248:165:2",
+            "src": "248:165:10",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 99,
-        "src": "60:356:2"
+        "scope": 1264,
+        "src": "60:356:10"
       }
     ],
-    "src": "33:385:2"
+    "src": "33:385:10"
   },
   "legacyAST": {
-    "attributes": {
-      "absolutePath": "/D/Working Dir/autonio/niox-staking-contract/contracts/RewardsDistributionRecipient.sol",
-      "exportedSymbols": {
-        "RewardsDistributionRecipient": [
-          98
-        ]
-      },
-      "license": "MIT"
+    "absolutePath": "project:/contracts/RewardsDistributionRecipient.sol",
+    "exportedSymbols": {
+      "RewardsDistributionRecipient": [
+        1263
+      ]
     },
-    "children": [
+    "id": 1264,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
       {
-        "attributes": {
-          "literals": [
-            "solidity",
-            "^",
-            "0.7",
-            ".6"
-          ]
-        },
-        "id": 76,
-        "name": "PragmaDirective",
-        "src": "33:23:2"
+        "id": 1241,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:10"
       },
       {
-        "attributes": {
-          "abstract": true,
-          "baseContracts": [
-            null
-          ],
-          "contractDependencies": [
-            null
-          ],
-          "contractKind": "contract",
-          "fullyImplemented": false,
-          "linearizedBaseContracts": [
-            98
-          ],
-          "name": "RewardsDistributionRecipient",
-          "scope": 99
-        },
-        "children": [
+        "abstract": true,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": false,
+        "id": 1263,
+        "linearizedBaseContracts": [
+          1263
+        ],
+        "name": "RewardsDistributionRecipient",
+        "nodeType": "ContractDefinition",
+        "nodes": [
           {
-            "attributes": {
-              "constant": false,
-              "functionSelector": "3fc6df6e",
-              "mutability": "mutable",
-              "name": "rewardsDistribution",
-              "scope": 98,
-              "stateVariable": true,
-              "storageLocation": "default",
-              "type": "address",
-              "visibility": "public"
+            "constant": false,
+            "functionSelector": "3fc6df6e",
+            "id": 1243,
+            "mutability": "mutable",
+            "name": "rewardsDistribution",
+            "nodeType": "VariableDeclaration",
+            "scope": 1263,
+            "src": "112:34:10",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
             },
-            "children": [
-              {
-                "attributes": {
-                  "name": "address",
-                  "stateMutability": "nonpayable",
-                  "type": "address"
-                },
-                "id": 77,
-                "name": "ElementaryTypeName",
-                "src": "112:7:2"
-              }
-            ],
-            "id": 78,
-            "name": "VariableDeclaration",
-            "src": "112:34:2"
-          },
-          {
-            "attributes": {
-              "functionSelector": "246132f9",
-              "implemented": false,
-              "isConstructor": false,
-              "kind": "function",
-              "modifiers": [
-                null
-              ],
-              "name": "notifyRewardAmount",
-              "scope": 98,
+            "typeName": {
+              "id": 1242,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "112:7:10",
               "stateMutability": "nonpayable",
-              "virtual": true,
-              "visibility": "external"
-            },
-            "children": [
-              {
-                "children": [
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "mutability": "mutable",
-                      "name": "reward",
-                      "scope": 85,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "uint256",
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "uint256",
-                          "type": "uint256"
-                        },
-                        "id": 79,
-                        "name": "ElementaryTypeName",
-                        "src": "181:7:2"
-                      }
-                    ],
-                    "id": 80,
-                    "name": "VariableDeclaration",
-                    "src": "181:14:2"
-                  },
-                  {
-                    "attributes": {
-                      "constant": false,
-                      "mutability": "mutable",
-                      "name": "duration",
-                      "scope": 85,
-                      "stateVariable": false,
-                      "storageLocation": "default",
-                      "type": "uint256",
-                      "visibility": "internal"
-                    },
-                    "children": [
-                      {
-                        "attributes": {
-                          "name": "uint256",
-                          "type": "uint256"
-                        },
-                        "id": 81,
-                        "name": "ElementaryTypeName",
-                        "src": "197:7:2"
-                      }
-                    ],
-                    "id": 82,
-                    "name": "VariableDeclaration",
-                    "src": "197:16:2"
-                  }
-                ],
-                "id": 83,
-                "name": "ParameterList",
-                "src": "180:34:2"
-              },
-              {
-                "attributes": {
-                  "parameters": [
-                    null
-                  ]
-                },
-                "children": [],
-                "id": 84,
-                "name": "ParameterList",
-                "src": "241:0:2"
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
               }
-            ],
-            "id": 85,
-            "name": "FunctionDefinition",
-            "src": "153:89:2"
+            },
+            "visibility": "public"
           },
           {
-            "attributes": {
-              "name": "onlyRewardsDistribution",
-              "virtual": false,
-              "visibility": "internal"
-            },
-            "children": [
-              {
-                "attributes": {
-                  "parameters": [
-                    null
-                  ]
+            "functionSelector": "246132f9",
+            "id": 1250,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "notifyRewardAmount",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1248,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1245,
+                  "mutability": "mutable",
+                  "name": "reward",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1250,
+                  "src": "181:14:10",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1244,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "181:7:10",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
                 },
-                "children": [],
-                "id": 86,
-                "name": "ParameterList",
-                "src": "280:2:2"
-              },
-              {
-                "children": [
-                  {
-                    "children": [
+                {
+                  "constant": false,
+                  "id": 1247,
+                  "mutability": "mutable",
+                  "name": "duration",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1250,
+                  "src": "197:16:10",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1246,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "197:7:10",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "180:34:10"
+            },
+            "returnParameters": {
+              "id": 1249,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "241:0:10"
+            },
+            "scope": 1263,
+            "src": "153:89:10",
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "external"
+          },
+          {
+            "body": {
+              "id": 1261,
+              "nodeType": "Block",
+              "src": "283:130:10",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
                       {
-                        "attributes": {
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 1256,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "expression": {
+                            "id": 1253,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4294967281,
+                            "src": "306:3:10",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 1254,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
-                          "isStructConstructorCall": false,
                           "lValueRequested": false,
-                          "names": [
-                            null
-                          ],
-                          "tryCall": false,
-                          "type": "tuple()",
-                          "type_conversion": false
-                        },
-                        "children": [
-                          {
-                            "attributes": {
-                              "argumentTypes": [
-                                {
-                                  "typeIdentifier": "t_bool",
-                                  "typeString": "bool"
-                                },
-                                {
-                                  "typeIdentifier": "t_stringliteral_d50b095422f4cbfcb4c90fbd4d55aaf0967bf1d90e94bb6a1ae9fc4ee7e733de",
-                                  "typeString": "literal_string \"Caller is not RewardsDistribution contract\""
-                                }
-                              ],
-                              "overloadedDeclarations": [
-                                4294967278,
-                                4294967278
-                              ],
-                              "referencedDeclaration": 4294967278,
-                              "type": "function (bool,string memory) pure",
-                              "value": "require"
-                            },
-                            "id": 87,
-                            "name": "Identifier",
-                            "src": "290:7:2"
-                          },
-                          {
-                            "attributes": {
-                              "commonType": {
-                                "typeIdentifier": "t_address",
-                                "typeString": "address"
-                              },
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": false,
-                              "lValueRequested": false,
-                              "operator": "==",
-                              "type": "bool"
-                            },
-                            "children": [
-                              {
-                                "attributes": {
-                                  "isConstant": false,
-                                  "isLValue": false,
-                                  "isPure": false,
-                                  "lValueRequested": false,
-                                  "member_name": "sender",
-                                  "type": "address payable"
-                                },
-                                "children": [
-                                  {
-                                    "attributes": {
-                                      "overloadedDeclarations": [
-                                        null
-                                      ],
-                                      "referencedDeclaration": 4294967281,
-                                      "type": "msg",
-                                      "value": "msg"
-                                    },
-                                    "id": 88,
-                                    "name": "Identifier",
-                                    "src": "306:3:2"
-                                  }
-                                ],
-                                "id": 89,
-                                "name": "MemberAccess",
-                                "src": "306:10:2"
-                              },
-                              {
-                                "attributes": {
-                                  "overloadedDeclarations": [
-                                    null
-                                  ],
-                                  "referencedDeclaration": 78,
-                                  "type": "address",
-                                  "value": "rewardsDistribution"
-                                },
-                                "id": 90,
-                                "name": "Identifier",
-                                "src": "320:19:2"
-                              }
-                            ],
-                            "id": 91,
-                            "name": "BinaryOperation",
-                            "src": "306:33:2"
-                          },
-                          {
-                            "attributes": {
-                              "hexvalue": "43616c6c6572206973206e6f742052657761726473446973747269627574696f6e20636f6e7472616374",
-                              "isConstant": false,
-                              "isLValue": false,
-                              "isPure": true,
-                              "lValueRequested": false,
-                              "token": "string",
-                              "type": "literal_string \"Caller is not RewardsDistribution contract\"",
-                              "value": "Caller is not RewardsDistribution contract"
-                            },
-                            "id": 92,
-                            "name": "Literal",
-                            "src": "348:44:2"
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "src": "306:10:10",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
                           }
-                        ],
-                        "id": 93,
-                        "name": "FunctionCall",
-                        "src": "290:109:2"
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "id": 1255,
+                          "name": "rewardsDistribution",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1243,
+                          "src": "320:19:10",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "306:33:10",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "43616c6c6572206973206e6f742052657761726473446973747269627574696f6e20636f6e7472616374",
+                        "id": 1257,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "348:44:10",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_d50b095422f4cbfcb4c90fbd4d55aaf0967bf1d90e94bb6a1ae9fc4ee7e733de",
+                          "typeString": "literal_string \"Caller is not RewardsDistribution contract\""
+                        },
+                        "value": "Caller is not RewardsDistribution contract"
                       }
                     ],
-                    "id": 94,
-                    "name": "ExpressionStatement",
-                    "src": "290:109:2"
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_d50b095422f4cbfcb4c90fbd4d55aaf0967bf1d90e94bb6a1ae9fc4ee7e733de",
+                          "typeString": "literal_string \"Caller is not RewardsDistribution contract\""
+                        }
+                      ],
+                      "id": 1252,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "290:7:10",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 1258,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "290:109:10",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
                   },
-                  {
-                    "id": 95,
-                    "name": "PlaceholderStatement",
-                    "src": "406:1:2"
-                  }
-                ],
-                "id": 96,
-                "name": "Block",
-                "src": "283:130:2"
-              }
-            ],
-            "id": 97,
-            "name": "ModifierDefinition",
-            "src": "248:165:2"
+                  "id": 1259,
+                  "nodeType": "ExpressionStatement",
+                  "src": "290:109:10"
+                },
+                {
+                  "id": 1260,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "406:1:10"
+                }
+              ]
+            },
+            "id": 1262,
+            "name": "onlyRewardsDistribution",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 1251,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "280:2:10"
+            },
+            "src": "248:165:10",
+            "virtual": false,
+            "visibility": "internal"
           }
         ],
-        "id": 98,
-        "name": "ContractDefinition",
-        "src": "60:356:2"
+        "scope": 1264,
+        "src": "60:356:10"
       }
     ],
-    "id": 99,
-    "name": "SourceUnit",
-    "src": "33:385:2"
+    "src": "33:385:10"
   },
   "compiler": {
     "name": "solc",
-    "version": "0.7.6+commit.7338295f.Emscripten.clang"
+    "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.3",
-  "updatedAt": "2021-08-31T08:22:19.975Z",
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2021-09-06T15:38:14.133Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
