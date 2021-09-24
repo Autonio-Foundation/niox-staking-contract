@@ -318,6 +318,11 @@ contract StakingRewards is
   }
 
   function performUpkeep(bytes calldata performData) external override {
+    require(
+      (block.timestamp - lastTimeStamp) > interval,
+      "Auto compound interval not reached"
+    );
+
     lastTimeStamp = block.timestamp;
     counter = counter + 1;
 
