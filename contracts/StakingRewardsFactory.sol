@@ -284,14 +284,17 @@ contract StakingRewards is
       "Already added in compounding"
     );
 
-    for (uint256 i = 0; i < userList.length; i++) {
-      if (userList[i] == msg.sender) {
-        userList[i] = userList[userList.length - 1];
+    address[] memory tempUserList = userList;
+    for (uint256 i = 0; i < tempUserList.length; i++) {
+      if (tempUserList[i] == msg.sender) {
+        tempUserList[i] = tempUserList[tempUserList.length - 1];
         checkUser[msg.sender] = address(0);
-        userList.pop();
+        assembly { mstore(tempUserList, sub(mload(tempUserList), 1)) }
         break;
       }
     }
+
+    userList = tempUserList;
   }
 
   function exit() external override {
@@ -316,9 +319,10 @@ contract StakingRewards is
     lastTimeStamp = block.timestamp;
     counter = counter + 1;
 
-    for (uint256 i = 0; i < userList.length; i++) {
-      if (earned(userList[i]) > 0) {
-        stakeComponding(userList[i]);
+    address[] memory tempUserList = userList;
+    for (uint256 i = 0; i < tempUserList.length; i++) {
+      if (earned(tempUserList[i]) > 0) {
+        stakeComponding(tempUserList[i]);
       }
     }
     // We don't use the performData in this example
