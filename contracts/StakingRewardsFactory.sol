@@ -289,7 +289,9 @@ contract StakingRewards is
       if (tempUserList[i] == msg.sender) {
         tempUserList[i] = tempUserList[tempUserList.length - 1];
         checkUser[msg.sender] = address(0);
-        assembly { mstore(tempUserList, sub(mload(tempUserList), 1)) }
+        assembly {
+          mstore(tempUserList, sub(mload(tempUserList), 1))
+        }
         break;
       }
     }
@@ -320,8 +322,16 @@ contract StakingRewards is
     counter = counter + 1;
 
     address[] memory tempUserList = userList;
+    uint256 currentRewardPerToken = rewardPerToken();
+
     for (uint256 i = 0; i < tempUserList.length; i++) {
-      if (earned(tempUserList[i]) > 0) {
+      address user = tempUserList[i];
+
+      if (
+        rewards[user] != 0 ||
+        (_balances[user] != 0 &&
+          currentRewardPerToken != userRewardPerTokenPaid[user])
+      ) {
         stakeComponding(tempUserList[i]);
       }
     }
@@ -417,9 +427,7 @@ contract StakingRewardsFactory is Ownable {
   mapping(address => StakingRewardsInfo)
     public stakingRewardsInfoByStakingToken;
 
-  constructor(address _rewardsToken, uint256 _stakingRewardsGenesis)
-    Ownable()
-  {
+  constructor(address _rewardsToken, uint256 _stakingRewardsGenesis) Ownable() {
     require(
       _stakingRewardsGenesis >= block.timestamp,
       "StakingRewardsFactory::constructor: genesis too soon"
