@@ -19,12 +19,14 @@
  */
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
+const Web3 = require("web3");
+const web3 = new Web3();
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 const privateKey =
-  "2b04fb8193a14c32598594fccf90d9fee1d78be5ea84850d67cbcc48431936c1";
+  "*";
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -72,6 +74,17 @@ module.exports = {
       confirmations: 2, // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
       skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
+    },
+
+    mainnet: {
+      provider: () =>
+        new HDWalletProvider(
+          [privateKey],
+          `wss://mainnet.infura.io/ws/v3/4ee71c3a70404cf8b1241df95bbc1347`
+        ),
+      network_id: 1, // Kovan's id
+      gas: 300000, // Kovan has a lower block limit than mainnet
+      gasPrice: web3.utils.toWei('100', 'gwei')
     },
 
     // Useful for private networks
