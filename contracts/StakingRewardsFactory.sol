@@ -42,8 +42,8 @@ contract StakingRewards is
   mapping(address => uint256) private _balances; // weight Stake amount
   mapping(address => uint256) private _actualbalances; // actual amount staked
 
-  mapping(address => uint256) private _userLockPeriod; // user after 6 month timestamp
-  mapping(address => uint256) private _userRewardLockPeriod; // user after 6 month timestamp
+  mapping(address => uint256) private _userLockPeriod; // allow unstake after 3 months from firstStake timestamp
+  mapping(address => uint256) private _userRewardLockPeriod; // claim reward every 3 months
 
   uint256 public lastTimeStamp;
 
@@ -65,7 +65,7 @@ contract StakingRewards is
     stakingToken = IERC20(_stakingToken);
     rewardsDistribution = _rewardsDistribution;
 
-    interval = 300; //15 min chk interval
+    interval = 864000;         // 10 day check interval
     lastTimeStamp = block.timestamp;
 
     counter = 0;
@@ -138,8 +138,8 @@ contract StakingRewards is
 
     // update at inital stake
     if (_userLockPeriod[msg.sender] < 1) {
-      _userLockPeriod[msg.sender] = block.timestamp + 3 minutes; // for withdraw locking
-      _userRewardLockPeriod[msg.sender] = block.timestamp + 10 minutes; // for reward locking
+      _userLockPeriod[msg.sender] = block.timestamp + 90 days; // for withdraw locking
+      _userRewardLockPeriod[msg.sender] = block.timestamp + 90 days; // for reward locking
     }
 
     emit Staked(msg.sender, amount);
@@ -159,8 +159,8 @@ contract StakingRewards is
 
       // update at inital stake
       if (_userLockPeriod[uaddress] < 1) {
-        _userLockPeriod[uaddress] = block.timestamp + 3 minutes; // for withdraw locking
-        _userRewardLockPeriod[uaddress] = block.timestamp + 3 minutes; // for reward locking
+        _userLockPeriod[uaddress] = block.timestamp + 90 days; // for withdraw locking
+        _userRewardLockPeriod[uaddress] = block.timestamp + 90 days; // for reward locking
       }
 
       rewards[uaddress] = 0; // setting user reward to zero since its added to stake
